@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tera & Seed | Handcrafted Natural Seed Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sand: '#FAF7F2',
+            sandDark: '#F0EAE0',
+            forest: '#1E3A2F',
+            forestLight: '#2C5243',
+            terracotta: '#B84A39',
+            terracottaDark: '#963829',
+            espresso: '#2B1E16',
+            espressoMuted: '#5C493E',
+            amberGold: '#C88A36',
+            ochre: '#D99B52',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Custom subtle grain & smooth transitions */
+    body {
+      background-color: #FAF7F2;
+      color: #2B1E16;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    h1, h2, h3, h4, .font-serif-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .seed-card-hover {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+    }
+    .seed-card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -12px rgba(43, 30, 22, 0.14);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF7F2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C8B9A6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9E8B76;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-terracotta selection:text-white">
+
+  <!-- Toast Notification Container (Replaces alert()) -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-40 bg-sand/90 backdrop-blur-md border-b border-espresso/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-full bg-forest flex items-center justify-center text-sand shadow-sm group-hover:bg-terracotta transition-colors">
+            <!-- Botanical Seed SVG Emblem -->
+            <svg class="w-6 h-6" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.75">
+              <path d="M16 4C10 10 8 16 10 22C11.5 26 14.5 28 16 28C17.5 28 20.5 26 22 22C24 16 22 10 16 4Z" />
+              <path d="M16 8V25" stroke-linecap="round" />
+              <path d="M16 14L12 11" stroke-linecap="round" />
+              <path d="M16 18L20 15" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-serif-display text-2xl font-bold tracking-tight text-espresso block leading-none">
+              Tera &amp; Seed
+            </span>
+            <span class="text-[11px] uppercase tracking-[0.22em] text-espressoMuted font-medium">
+              Botanical Jewelry
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-espresso/85">
+          <a href="#collection" class="hover:text-terracotta transition-colors">Shop by Type</a>
+          <a href="#seed-encyclopedia" class="hover:text-terracotta transition-colors">Seed Encyclopedia</a>
+          <a href="#craft" class="hover:text-terracotta transition-colors">Our Craft</a>
+          <a href="#care-guide" class="hover:text-terracotta transition-colors">Seed Care</a>
+        </nav>
+
+        <!-- Actions: Cart Button & Mobile Menu -->
+        <div class="flex items-center gap-3">
+          <button
+            onclick="toggleCart(true)"
+            aria-label="Open Shopping Bag"
+            class="relative inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-espresso text-sand text-sm font-medium hover:bg-forest transition-colors shadow-sm"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span class="hidden sm:inline">Bag</span>
+            <span
+              id="cartBadge"
+              class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold rounded-full bg-terracotta text-white"
+            >
+              0
+            </span>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button
+            id="mobileMenuBtn"
+            onclick="toggleMobileMenu()"
+            aria-label="Toggle Menu"
+            class="md:hidden p-2.5 rounded-xl border border-espresso/15 text-espresso hover:bg-sandDark"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav Drawer -->
+      <div id="mobileMenu" class="hidden md:hidden pb-4 pt-2 border-t border-espresso/10 space-y-2">
+        <a href="#collection" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium hover:bg-sandDark">Shop by Type</a>
+        <a href="#seed-encyclopedia" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium hover:bg-sandDark">Seed Encyclopedia</a>
+        <a href="#craft" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium hover:bg-sandDark">Our Craft</a>
+        <a href="#care-guide" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium hover:bg-sandDark">Seed Care</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-forest text-sand">
+    <!-- Subtle Organic SVG Pattern Overlay -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="seedPattern" width="80" height="80" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="3" fill="#FAF7F2" />
+            <ellipse cx="60" cy="45" rx="5" ry="8" transform="rotate(25 60 45)" fill="none" stroke="#FAF7F2" stroke-width="1.2" />
+            <path d="M15 65 Q25 55 35 65" fill="none" stroke="#FAF7F2" stroke-width="1.2" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#seedPattern)" />
+      </svg>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Copy -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sand/10 border border-sand/20 text-ochre text-xs font-semibold uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+            100% Wild-Harvested Botanical Adornments
+          </div>
+
+          <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-sand">
+            Wear the Earth’s Hidden Gems — <span class="italic font-normal text-ochre">Handcrafted Natural Seed Jewelry</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-sand/85 max-w-2xl leading-relaxed">
+            Every necklace, bracelet, and earring is thoughtfully strung by hand using genuine crimson Abrus seeds, pearlescent Job’s Tears, sacred Rudraksha, and sculptural Entada sea beans—unpainted, featherlight, and steeped in natural heritage.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a
+              href="#collection"
+              class="px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm tracking-wide transition-all shadow-lg shadow-black/20"
+            >
+              Explore Collection
+            </a>
+            <a
+              href="#seed-encyclopedia"
+              class="px-7 py-3.5 rounded-full bg-sand/10 hover:bg-sand/20 border border-sand/30 text-sand font-semibold text-sm tracking-wide transition-all"
+            >
+              Discover the Seeds
+            </a>
+          </div>
+
+          <!-- Trust Highlights -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-sand/15 max-w-lg">
+            <div>
+              <p class="font-serif-display text-2xl font-bold text-ochre">6+</p>
+              <p class="text-xs text-sand/75">Native Seed Varieties</p>
+            </div>
+            <div>
+              <p class="font-serif-display text-2xl font-bold text-ochre">0%</p>
+              <p class="text-xs text-sand/75">Synthetic Dyes or Plastic</p>
+            </div>
+            <div>
+              <p class="font-serif-display text-2xl font-bold text-ochre">1-of-1</p>
+              <p class="text-xs text-sand/75">Unique Natural Grain</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editorial Botanical Showcase Card -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl bg-sand p-6 sm:p-8 text-espresso shadow-2xl border border-ochre/30">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Artisan Showcase</span>
+              <span class="px-3 py-1 rounded-full bg-forest/10 text-forest text-xs font-semibold">Made from Natural Seeds</span>
+            </div>
+
+            <!-- Custom Illustrated Jewelry Display Composition -->
+            <div class="rounded-2xl bg-gradient-to-br from-[#F4EDE2] to-[#E5D9C7] p-6 border border-espresso/10">
+              <svg viewBox="0 0 360 270" class="w-full h-auto drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wooden Stand Bar -->
+                <rect x="20" y="28" width="320" height="16" rx="6" fill="#9C7A54" />
+                <rect x="20" y="28" width="320" height="5" rx="2" fill="#B5926B" />
+
+                <!-- Hanging Crimson & Olive Seed Necklaces (Left) -->
+                <g>
+                  <!-- Olive-grey seed strand -->
+                  <path d="M62 44 C56 115, 62 185, 70 245" stroke="#3D352E" stroke-width="1.5" fill="none" />
+                  <ellipse cx="60" cy="64" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="59" cy="84" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="59" cy="104" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="60" cy="124" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="62" cy="144" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="64" cy="164" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="66" cy="184" rx="7" ry="9" fill="#5D6455" />
+                  <ellipse cx="68" cy="204" rx="7" ry="9" fill="#5D6455" />
+
+                  <!-- Crimson Abrus seed strand -->
+                  <path d="M88 44 C84 115, 90 185, 96 245" stroke="#3D352E" stroke-width="1.5" fill="none" />
+                  <circle cx="87" cy="62" r="6" fill="#C92A2A" />
+                  <circle cx="86" cy="76" r="6" fill="#C92A2A" />
+                  <circle cx="86" cy="90" r="6" fill="#C92A2A" />
+                  <circle cx="86" cy="104" r="6" fill="#C92A2A" />
+                  <circle cx="87" cy="118" r="6" fill="#C92A2A" />
+                  <circle cx="88" cy="132" r="6" fill="#C92A2A" />
+                  <circle cx="89" cy="146" r="6" fill="#C92A2A" />
+                  <circle cx="91" cy="160" r="6" fill="#C92A2A" />
+                  <circle cx="92" cy="174" r="6" fill="#C92A2A" />
+                  <circle cx="93" cy="188" r="6" fill="#C92A2A" />
+                </g>
+
+                <!-- Bracelet Stack on Wooden Bar (Top Right) -->
+                <g>
+                  <!-- Job's Tears Bracelet -->
+                  <rect x="148" y="16" width="14" height="42" rx="7" fill="#D5D7D4" stroke="#7A7D79" stroke-width="1" />
+                  <!-- Olive Seed Bracelet -->
+                  <rect x="166" y="15" width="16" height="44" rx="8" fill="#596152" />
+                  <!-- Crimson & Ebony Bracelet -->
+                  <rect x="186" y="15" width="15" height="44" rx="7.5" fill="#B82929" />
+                  <circle cx="193.5" cy="26" r="3" fill="#1F1B18" />
+                  <circle cx="193.5" cy="46" r="3" fill="#1F1B18" />
+                  <!-- Rudraksha Bracelet -->
+                  <rect x="205" y="15" width="16" height="44" rx="8" fill="#8C5230" stroke="#5E3319" stroke-dasharray="2 2" />
+                  <!-- Ochre / Tagua Bracelet -->
+                  <rect x="225" y="15" width="16" height="44" rx="8" fill="#C97A36" />
+                  <!-- Giant Sea Bean Cuff -->
+                  <ellipse cx="262" cy="37" rx="18" ry="22" fill="#5C3A24" stroke="#3B2314" stroke-width="2" />
+                </g>
+
+                <!-- Black Velvet Earring Display Board -->
+                <rect x="122" y="74" width="208" height="176" rx="12" fill="#232220" />
+
+                <!-- Pair 1: Crimson & Ebony Drop Earrings -->
+                <g transform="translate(148, 96)">
+                  <path d="M0 0 C0 -6, 6 -6, 6 0" stroke="#D1D5DB" fill="none" stroke-width="1.4" />
+                  <circle cx="3" cy="10" r="5" fill="#C92A2A" />
+                  <ellipse cx="3" cy="24" rx="6" ry="8" fill="#141312" />
+                  <path d="M18 0 C18 -6, 24 -6, 24 0" stroke="#D1D5DB" fill="none" stroke-width="1.4" />
+                  <circle cx="21" cy="10" r="5" fill="#C92A2A" />
+                  <ellipse cx="21" cy="24" rx="6" ry="8" fill="#141312" />
+                </g>
+
+                <!-- Pair 2: Job's Tears Hoops -->
+                <g transform="translate(202, 96)">
+                  <circle cx="10" cy="18" r="12" stroke="#D8DBD6" stroke-width="5" stroke-dasharray="6 2" fill="none" />
+                  <circle cx="34" cy="18" r="12" stroke="#D8DBD6" stroke-width="5" stroke-dasharray="6 2" fill="none" />
+                </g>
+
+                <!-- Pair 3: Ochre & Rudraksha Drops -->
+                <g transform="translate(268, 96)">
+                  <circle cx="6" cy="11" r="6" fill="#D97724" />
+                  <circle cx="6" cy="25" r="7.5" fill="#8C5230" />
+                  <circle cx="26" cy="11" r="6" fill="#D97724" />
+                  <circle cx="26" cy="25" r="7.5" fill="#8C5230" />
+                </g>
+
+                <!-- Pair 4: Sculptural Sea Bean & Pod Earrings (Bottom Row) -->
+                <g transform="translate(155, 174)">
+                  <path d="M4 12 C-4 22, -2 38, 12 42" stroke="#A67B56" stroke-width="5" fill="none" stroke-linecap="round" />
+                  <ellipse cx="10" cy="26" rx="7" ry="9" fill="#59361E" />
+                  <path d="M32 12 C40 22, 38 38, 24 42" stroke="#A67B56" stroke-width="5" fill="none" stroke-linecap="round" />
+                  <ellipse cx="26" cy="26" rx="7" ry="9" fill="#59361E" />
+                </g>
+
+                <!-- Pair 5: Twin Ochre Drops -->
+                <g transform="translate(232, 176)">
+                  <circle cx="6" cy="10" r="4" fill="#C92A2A" />
+                  <circle cx="6" cy="24" r="7.5" fill="#C96A22" />
+                  <circle cx="26" cy="10" r="4" fill="#C92A2A" />
+                  <circle cx="26" cy="24" r="7.5" fill="#C96A22" />
+                </g>
+              </svg>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between gap-4">
+              <div>
+                <h3 class="font-serif-display text-xl font-bold text-espresso">The Market Harvest Collection</h3>
+                <p class="text-xs text-espressoMuted">Earrings, Stretch Bracelets &amp; Multi-Strand Necklaces</p>
+              </div>
+              <a href="#collection" class="shrink-0 text-xs font-bold uppercase tracking-wider text-forest hover:text-terracotta underline underline-offset-4">
+                Shop All &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Shop by Jewelry Type (Interactive Filterable Catalog) -->
+  <section id="collection" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-[0.2em] text-terracotta block mb-2">
+          Curated Botanical Pieces
+        </span>
+        <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-espresso">
+          Shop by Jewelry Type
+        </h2>
+        <p class="text-espressoMuted mt-2 max-w-xl text-sm sm:text-base">
+          Filter by category or click any seed tag on a piece to discover its botanical origin, natural color source, and cultural significance.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div role="tablist" aria-label="Filter jewelry by type" class="inline-flex flex-wrap gap-2 bg-sandDark p-1.5 rounded-2xl border border-espresso/10">
+        <button
+          onclick="filterProducts('All')"
+          data-filter="All"
+          class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all bg-espresso text-sand shadow-sm"
+        >
+          All Pieces (<span id="count-All">13</span>)
+        </button>
+        <button
+          onclick="filterProducts('Earrings')"
+          data-filter="Earrings"
+          class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all text-espresso hover:bg-sand"
+        >
+          Earrings (<span id="count-Earrings">5</span>)
+        </button>
+        <button
+          onclick="filterProducts('Bracelets')"
+          data-filter="Bracelets"
+          class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all text-espresso hover:bg-sand"
+        >
+          Bracelets (<span id="count-Bracelets">5</span>)
+        </button>
+        <button
+          onclick="filterProducts('Necklaces')"
+          data-filter="Necklaces"
+          class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all text-espresso hover:bg-sand"
+        >
+          Necklaces (<span id="count-Necklaces">3</span>)
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Seed Filter Banner (Shown when filtering by a specific seed) -->
+    <div id="activeSeedFilterBanner" class="hidden mb-8 p-4 rounded-2xl bg-forest/10 border border-forest/20 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-forest"></span>
+        <p class="text-sm text-espresso">
+          Showing jewelry crafted with <strong id="activeSeedFilterName" class="text-forest"></strong>
+        </p>
+      </div>
+      <button onclick="clearSeedFilter()" class="text-xs font-bold uppercase tracking-wider text-terracotta hover:underline">
+        Show All Jewelry
+      </button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Dynamically populated via JS -->
+    </div>
+  </section>
+
+  <!-- Section 2: The Seed Encyclopedia ("Know Your Seeds") -->
+  <section id="seed-encyclopedia" class="py-20 sm:py-24 bg-sandDark/75 border-y border-espresso/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-[0.2em] text-forest block mb-2">
+          Botanical Provenance &amp; Lore
+        </span>
+        <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-espresso">
+          Know Your Seeds: The Seed Encyclopedia
+        </h2>
+        <p class="text-espressoMuted mt-3 text-sm sm:text-base leading-relaxed">
+          Unlike glass or plastic beads, every seed in our studio has a living botanical story. Explore the exact seeds harvested from forests, riverbanks, and tropical grasses to create your jewelry.
+        </p>
+      </div>
+
+      <!-- Seed Cards Grid -->
+      <div id="seedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- Dynamically populated via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Artisan Craft & Sustainability -->
+  <section id="craft" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="rounded-3xl bg-forest text-sand p-8 sm:p-10 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-ochre/15 blur-2xl"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] text-ochre block mb-3">
+            From Forest Floor to Studio
+          </span>
+          <h3 class="font-serif-display text-3xl sm:text-4xl font-bold leading-tight mb-4">
+            Slow-Crafted by Hand, Never Mass-Produced
+          </h3>
+          <p class="text-sand/85 text-sm leading-relaxed mb-6">
+            Each seed is ethically gathered after falling naturally from trees and grasses. We sun-cure, hand-sort for symmetry, micro-drill with precision, and finish every piece with hypoallergenic hooks and durable cords.
+          </p>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-ochre/20 text-ochre flex items-center justify-center font-bold text-xs">1</span>
+              <span>Sustainably gathered fallen seeds &amp; pods</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-ochre/20 text-ochre flex items-center justify-center font-bold text-xs">2</span>
+              <span>Sun-dried &amp; buffed with natural beeswax/plant oil</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-ochre/20 text-ochre flex items-center justify-center font-bold text-xs">3</span>
+              <span>Paired by natural weight for featherlight wear</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-white border border-espresso/10 shadow-sm">
+          <div class="w-11 h-11 rounded-xl bg-terracotta/10 text-terracotta flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+          </div>
+          <h4 class="font-serif-display text-2xl font-bold text-espresso mb-2">100% Natural Colors</h4>
+          <p class="text-sm text-espressoMuted leading-relaxed">
+            The vivid scarlet of Abrus, pearly grey of Job’s Tears, and deep espresso of Entada beans are completely natural—zero paints or chemical stains.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-espresso/10 shadow-sm">
+          <div class="w-11 h-11 rounded-xl bg-forest/10 text-forest flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+          </div>
+          <h4 class="font-serif-display text-2xl font-bold text-espresso mb-2">Featherlight All-Day Comfort</h4>
+          <p class="text-sm text-espressoMuted leading-relaxed">
+            Even bold statement earrings and multi-strand necklaces feel remarkably light, preventing earlobe strain while making an unmistakable statement.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-espresso/10 shadow-sm">
+          <div class="w-11 h-11 rounded-xl bg-amberGold/15 text-amberGold flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+          <h4 class="font-serif-display text-2xl font-bold text-espresso mb-2">One-of-a-Kind Variations</h4>
+          <p class="text-sm text-espressoMuted leading-relaxed">
+            No two seeds grow identically. Subtle organic curves, natural furrows, and warm tonal shifts ensure your jewelry is uniquely yours.
+          </p>
+        </div>
+
+        <div id="care-guide" class="p-6 rounded-2xl bg-white border border-espresso/10 shadow-sm">
+          <div class="w-11 h-11 rounded-xl bg-espresso/10 text-espresso flex items-center justify-center mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <h4 class="font-serif-display text-2xl font-bold text-espresso mb-2">Heirloom Seed Care</h4>
+          <p class="text-sm text-espressoMuted leading-relaxed">
+            Keep away from prolonged water immersion. Occasionally buff matte seeds with a drop of coconut or jojoba oil to enrich their natural luster.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-espresso text-sand/85 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-sand/15">
+        <div>
+          <span class="font-serif-display text-3xl font-bold text-sand block mb-3">Tera &amp; Seed</span>
+          <p class="text-sm text-sand/75 leading-relaxed max-w-sm">
+            Celebrating nature’s sculptural perfection through handcrafted, sustainable seed jewelry. Wear stories rooted in the earth.
+          </p>
+        </div>
+
+        <div>
+          <h5 class="font-serif-display text-xl font-bold text-ochre mb-3">Explore</h5>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#collection" onclick="filterProducts('Earrings')" class="hover:text-white transition-colors">Natural Seed Earrings</a></li>
+            <li><a href="#collection" onclick="filterProducts('Bracelets')" class="hover:text-white transition-colors">Artisan Seed Bracelets</a></li>
+            <li><a href="#collection" onclick="filterProducts('Necklaces')" class="hover:text-white transition-colors">Botanical Strand Necklaces</a></li>
+            <li><a href="#seed-encyclopedia" class="hover:text-white transition-colors">The Seed Encyclopedia</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-serif-display text-xl font-bold text-ochre mb-3">Direct Orders &amp; Custom Sets</h5>
+          <p class="text-sm text-sand/75 mb-3">
+            Looking for custom bridal sets, wholesale artisan orders, or personalized seed combinations? Reach out anytime.
+          </p>
+          <p class="text-sm font-medium text-sand">
+            Phone / WhatsApp: <a href="tel:+251925256424" class="text-ochre hover:underline">+251 925 256 424</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sand/65">
+        <p>&copy; 2026 Tera &amp; Seed Artisan Jewelry. All rights reserved.</p>
+        <p class="font-medium text-sand/90">
+          Designed &amp; Developed by <span class="text-ochre font-semibold">Abdi Abera</span> | <a href="tel:+251925256424" class="hover:underline">+251925256424</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Product & Seed Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/70 backdrop-blur-sm">
+    <div class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-sand text-espresso shadow-2xl border border-espresso/15 p-6 sm:p-8">
+      <button
+        onclick="closeDetailModal()"
+        aria-label="Close modal"
+        class="absolute top-5 right-5 w-10 h-10 rounded-full bg-sandDark hover:bg-espresso hover:text-sand flex items-center justify-center transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div id="detailModalContent">
+        <!-- Dynamically injected product or seed profile -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide-over Shopping Cart Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div onclick="toggleCart(false)" class="absolute inset-0 bg-espresso/60 backdrop-blur-xs transition-opacity"></div>
+
+    <!-- Drawer Panel -->
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-sand shadow-2xl flex flex-col border-l border-espresso/15">
+      <!-- Drawer Header -->
+      <div class="p-6 border-b border-espresso/10 flex items-center justify-between">
+        <div>
+          <h3 class="font-serif-display text-2xl font-bold text-espresso">Your Botanical Bag</h3>
+          <p class="text-xs text-espressoMuted">Handcrafted natural seed pieces</p>
+        </div>
+        <button
+          onclick="toggleCart(false)"
+          aria-label="Close bag"
+          class="p-2 rounded-full hover:bg-sandDark text-espresso"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Populated via JS -->
+      </div>
+
+      <!-- Cart Footer & Checkout Form -->
+      <div id="cartFooter" class="p-6 bg-sandDark/80 border-t border-espresso/10 space-y-4">
+        <div class="flex items-center justify-between text-base font-semibold">
+          <span class="text-espressoMuted">Subtotal</span>
+          <span id="cartSubtotal" class="font-serif-display text-2xl font-bold text-espresso">$0.00</span>
+        </div>
+
+        <!-- Quick Order Checkout Form -->
+        <div id="checkoutFormSection" class="hidden space-y-3 pt-2 border-t border-espresso/10">
+          <input
+            type="text"
+            id="customerName"
+            placeholder="Your Full Name"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Phone / WhatsApp Number"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <input
+            type="text"
+            id="customerCity"
+            placeholder="Delivery City & Address"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button
+              onclick="submitStandardOrder()"
+              class="w-full py-3 px-4 rounded-xl bg-forest hover:bg-forestLight text-white text-xs font-bold uppercase tracking-wider transition-colors"
+            >
+              Confirm Order
+            </button>
+            <button
+              onclick="orderViaWhatsApp()"
+              class="w-full py-3 px-4 rounded-xl bg-terracotta hover:bg-terracottaDark text-white text-xs font-bold uppercase tracking-wider transition-colors"
+            >
+              Order via WhatsApp
+            </button>
+          </div>
+        </div>
+
+        <button
+          id="proceedCheckoutBtn"
+          onclick="showCheckoutForm()"
+          class="w-full py-3.5 rounded-full bg-espresso hover:bg-forest text-sand font-semibold text-sm tracking-wide transition-colors shadow-md"
+        >
+          Proceed to Order Inquiry
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic & Rich Botanical Data -->
+  <script>
+    // 1. Seed Encyclopedia Database
+    const SEEDS = {
+      abrus: {
+        id: 'abrus',
+        name: 'Red Lucky Seeds (Abrus)',
+        botanicalName: 'Abrus precatorius / Red Sandalwood Seed',
+        origin: 'Tropical Woodlands & East African Savannas',
+        colorTexture: 'Glossy crimson-scarlet shell with an iconic jet-black eye; naturally porcelain-smooth without varnish.',
+        meaning: 'Celebrated across cultures as an emblem of good fortune, vitality, love, and protective energy.',
+        care: 'Keep dry; wipe gently with a soft cotton cloth. Naturally impervious to fading.',
+        swatchBg: '#C92A2A',
+        swatchAccent: '#1C1917',
+      },
+      jobsTears: {
+        id: 'jobsTears',
+        name: "Job's Tears (Grey Pearl)",
+        botanicalName: 'Coix lacryma-jobi',
+        origin: 'Riverbanks & Lush Tropical Grasslands',
+        colorTexture: 'Pearlescent dove-grey, silver-slate, and creamy ivory teardrop grains with a natural glass-like enamel.',
+        meaning: 'Symbolizes peace, resilience, and gentle clarity. Each seed grows with a natural hollow center ideal for stringing.',
+        care: 'Water-resistant enamel; avoid harsh perfumes and store in a fabric pouch.',
+        swatchBg: '#C8CCC6',
+        swatchAccent: '#FFFFFF',
+      },
+      rudraksha: {
+        id: 'rudraksha',
+        name: 'Sacred Rudraksha Seeds',
+        botanicalName: 'Elaeocarpus ganitrus',
+        origin: 'Foothills & Evergreen Broadleaf Forests',
+        colorTexture: 'Deeply furrowed, organically ridged reddish-brown spheres with a tactile, earthy matte finish.',
+        meaning: 'Revered for centuries for grounding energy, calm focus, and connection to the natural world.',
+        care: 'Rub lightly with a drop of natural coconut or almond oil once every few months to deepen its rich patina.',
+        swatchBg: '#8C5230',
+        swatchAccent: '#5C3118',
+      },
+      entada: {
+        id: 'entada',
+        name: 'Entada Sea Beans & Pods',
+        botanicalName: 'Entada rheedii / Entada gigas',
+        origin: 'Coastal River Mouths & Climbing Forest Lianas',
+        colorTexture: 'Large, flat mahogany-brown disc seeds paired with sculptural, curled woody seed pods.',
+        meaning: 'Known as "voyager seeds" capable of drifting across oceans; symbolizes safe travel, endurance, and adventure.',
+        care: 'Keep away from soaking water; buff with beeswax or plant oil to maintain satin sheen.',
+        swatchBg: '#5C3A24',
+        swatchAccent: '#A67B56',
+      },
+      acacia: {
+        id: 'acacia',
+        name: 'Acacia & Ebony Seeds',
+        botanicalName: 'Acacia & Diospyros Species',
+        origin: 'Dry Highland Forests & Thornbush Woodlands',
+        colorTexture: 'Velvety charcoal-black and muted olive-sage flat oval seeds with subtle organic grain.',
+        meaning: 'Represents grounded strength, shelter, and timeless balance in artisan adornment.',
+        care: 'Store dry; lightly oil olive-toned seeds if exposed to dry air.',
+        swatchBg: '#3D4438',
+        swatchAccent: '#181716',
+      },
+      tagua: {
+        id: 'tagua',
+        name: 'Tagua & Ochre Nut Seeds',
+        botanicalName: 'Phytelephas & Tropical Palm Nuts',
+        origin: 'Humid Rainforest Understories',
+        colorTexture: 'Warm caramel, honey-amber, and roasted ochre rounded nuts known globally as sustainable "vegetable ivory."',
+        meaning: 'Eco-conscious emblem of abundance, warmth, and forest conservation.',
+        care: 'Wipe with a dry cloth; develops a warmer golden glow with skin contact over time.',
+        swatchBg: '#C97A36',
+        swatchAccent: '#E3A869',
+      },
+    };
+
+    // 2. Jewelry Product Catalog (Matches uploaded display items)
+    const PRODUCTS = [
+      // EARRINGS
+      {
+        id: 'p1',
+        name: 'Crimson Abrus & Ebony Drop Earrings',
+        type: 'Earrings',
+        price: 24,
+        seeds: ['abrus', 'acacia'],
+        description: 'Bold scarlet Abrus seeds suspended above matte charcoal-black Acacia drops on hypoallergenic silver-tone hooks.',
+        weight: '4.2g (Ultra-light)',
+        length: '4.8 cm',
+        illustration: 'abrusEbonyEarring',
+      },
+      {
+        id: 'p2',
+        name: 'Textured Rudraksha & Amber Drop Earrings',
+        type: 'Earrings',
+        price: 26,
+        seeds: ['rudraksha', 'tagua'],
+        description: 'Honey-amber Tagua nut spheres paired with deeply furrowed Rudraksha seeds for warm earthy contrast.',
+        weight: '5.0g',
+        length: '4.5 cm',
+        illustration: 'rudrakshaAmberEarring',
+      },
+      {
+        id: 'p3',
+        name: "Job's Tears (Grey Pearl) Cluster Hoops",
+        type: 'Earrings',
+        price: 28,
+        seeds: ['jobsTears'],
+        description: 'Hand-woven circular wreaths of naturally glossy dove-grey Job’s Tears seeds that shimmer softly in daylight.',
+        weight: '3.8g',
+        length: '4.2 cm',
+        illustration: 'jobsTearsHoop',
+      },
+      {
+        id: 'p4',
+        name: 'Carved Pod & Sea Bean Statement Earrings',
+        type: 'Earrings',
+        price: 34,
+        seeds: ['entada', 'abrus'],
+        description: 'Sculptural curled woody seed pods cradling smooth mahogany Entada sea beans, accented with a single crimson seed.',
+        weight: '6.4g',
+        length: '5.5 cm',
+        illustration: 'podSeaBeanEarring',
+      },
+      {
+        id: 'p5',
+        name: 'White & Red Seed Duet Drops',
+        type: 'Earrings',
+        price: 22,
+        seeds: ['jobsTears', 'abrus'],
+        description: 'Minimalist ivory teardrop seeds crowned with twin scarlet Abrus beads—effortless everyday botanical elegance.',
+        weight: '3.4g',
+        length: '3.8 cm',
+        illustration: 'whiteRedDuetEarring',
+      },
+
+      // BRACELETS
+      {
+        id: 'p6',
+        name: 'Multi-Seed Harvest Stretch Bracelet',
+        type: 'Bracelets',
+        price: 30,
+        seeds: ['acacia', 'abrus', 'jobsTears'],
+        description: 'A vibrant tapestry of olive-sage Acacia seeds punctuated by scarlet Abrus and pearly grey Job’s Tears.',
+        weight: '14g',
+        length: '18.5 cm (Flexible fit)',
+        illustration: 'multiSeedBracelet',
+      },
+      {
+        id: 'p7',
+        name: 'Rudraksha Meditation & Earth Bead Cuff',
+        type: 'Bracelets',
+        price: 32,
+        seeds: ['rudraksha'],
+        description: 'Uniformly matched textured Rudraksha beads strung on double-reinforced elastic for grounding daily wear.',
+        weight: '16g',
+        length: '19 cm (Flexible fit)',
+        illustration: 'rudrakshaBracelet',
+      },
+      {
+        id: 'p8',
+        name: 'Flat Grey & Crimson Seed Link Bracelet',
+        type: 'Bracelets',
+        price: 29,
+        seeds: ['jobsTears', 'abrus', 'acacia'],
+        description: 'Smooth flat grey seeds alternating with bright red and ebony accent beads for a sleek, modern silhouette.',
+        weight: '12g',
+        length: '18 cm (Flexible fit)',
+        illustration: 'greyCrimsonBracelet',
+      },
+      {
+        id: 'p9',
+        name: 'Giant Entada Sea Bean Statement Cuff',
+        type: 'Bracelets',
+        price: 42,
+        seeds: ['entada'],
+        description: 'Dramatic oversized mahogany Entada sea beans curved comfortably around the wrist—a true conversation piece.',
+        weight: '28g',
+        length: '19.5 cm (Flexible fit)',
+        illustration: 'seaBeanCuff',
+      },
+      {
+        id: 'p10',
+        name: 'Ivory & Mahogany Wood-Seed Bracelet',
+        type: 'Bracelets',
+        price: 34,
+        seeds: ['tagua', 'jobsTears', 'entada'],
+        description: 'Warm caramel Tagua nuts and creamy white seeds arranged in harmonious rhythmic bands.',
+        weight: '18g',
+        length: '18.5 cm (Flexible fit)',
+        illustration: 'ivoryMahoganyBracelet',
+      },
+
+      // NECKLACES
+      {
+        id: 'p11',
+        name: 'Crimson Cascade Seed Strand Necklace',
+        type: 'Necklaces',
+        price: 48,
+        seeds: ['abrus', 'acacia'],
+        description: 'A lush, cascading strand of glossy crimson Abrus seeds contrasted with earthy olive-grey seed accents.',
+        weight: '26g',
+        length: '48 cm + 5 cm extender',
+        illustration: 'crimsonNecklace',
+      },
+      {
+        id: 'p12',
+        name: 'Forest Green & Amber Seed Choker',
+        type: 'Necklaces',
+        price: 45,
+        seeds: ['acacia', 'tagua'],
+        description: 'Smooth olive-forest flat oval seeds paired with warm roasted-amber Tagua beads that sit gracefully at the collarbone.',
+        weight: '24g',
+        length: '44 cm + 5 cm extender',
+        illustration: 'forestAmberNecklace',
+      },
+      {
+        id: 'p13',
+        name: 'Earth & Berry Artisan Beaded Necklace',
+        type: 'Necklaces',
+        price: 54,
+        seeds: ['tagua', 'abrus', 'entada', 'acacia'],
+        description: 'Our signature collector’s strand uniting caramel Tagua, scarlet Abrus, and dark forest seeds in an heirloom design.',
+        weight: '32g',
+        length: '52 cm + 5 cm extender',
+        illustration: 'earthBerryNecklace',
+      },
+    ];
+
+    // 3. State Management
+    let activeCategory = 'All';
+    let activeSeedFilter = null;
+    let cart = [];
+
+    // 4. Custom SVG Illustration Generator for Each Product
+    function getProductIllustrationSVG(type) {
+      const svgs = {
+        abrusEbonyEarring: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#F3ECE1"/>
+            <g transform="translate(78, 28)">
+              <path d="M12 18 C12 4, 24 4, 24 18" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="18" cy="34" r="10" fill="#C92A2A"/>
+              <circle cx="15" cy="31" r="2.5" fill="#FF8787"/>
+              <ellipse cx="18" cy="64" rx="13" ry="18" fill="#1C1917"/>
+              <ellipse cx="14" cy="59" rx="3" ry="5" fill="#44403C"/>
+            </g>
+            <g transform="translate(126, 28)">
+              <path d="M12 18 C12 4, 24 4, 24 18" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="18" cy="34" r="10" fill="#C92A2A"/>
+              <circle cx="15" cy="31" r="2.5" fill="#FF8787"/>
+              <ellipse cx="18" cy="64" rx="13" ry="18" fill="#1C1917"/>
+              <ellipse cx="14" cy="59" rx="3" ry="5" fill="#44403C"/>
+            </g>
+          </svg>`,
+        rudrakshaAmberEarring: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#F3ECE1"/>
+            <g transform="translate(76, 26)">
+              <path d="M14 18 C14 4, 26 4, 26 18" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="20" cy="36" r="12" fill="#D97724"/>
+              <circle cx="16" cy="32" r="3" fill="#FBBF24" opacity="0.6"/>
+              <circle cx="20" cy="68" r="16" fill="#8C5230" stroke="#5C3118" stroke-width="2" stroke-dasharray="3 2"/>
+            </g>
+            <g transform="translate(124, 26)">
+              <path d="M14 18 C14 4, 26 4, 26 18" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="20" cy="36" r="12" fill="#D97724"/>
+              <circle cx="16" cy="32" r="3" fill="#FBBF24" opacity="0.6"/>
+              <circle cx="20" cy="68" r="16" fill="#8C5230" stroke="#5C3118" stroke-width="2" stroke-dasharray="3 2"/>
+            </g>
+          </svg>`,
+        jobsTearsHoop: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#F3ECE1"/>
+            <g transform="translate(65, 32)">
+              <path d="M22 14 C22 2, 32 2, 32 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="27" cy="54" r="26" stroke="#C8CCC6" stroke-width="11" stroke-dasharray="11 3" fill="none"/>
+              <circle cx="27" cy="54" r="26" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 11" fill="none"/>
+            </g>
+            <g transform="translate(122, 32)">
+              <path d="M22 14 C22 2, 32 2, 32 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="27" cy="54" r="26" stroke="#C8CCC6" stroke-width="11" stroke-dasharray="11 3" fill="none"/>
+              <circle cx="27" cy="54" r="26" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 11" fill="none"/>
+            </g>
+          </svg>`,
+        podSeaBeanEarring: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#F3ECE1"/>
+            <g transform="translate(66, 26)">
+              <path d="M22 14 C22 2, 32 2, 32 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="27" cy="24" r="6" fill="#C92A2A"/>
+              <path d="M18 34 C2 52, 6 88, 32 94" stroke="#A67B56" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <ellipse cx="29" cy="64" rx="14" ry="18" fill="#59361E"/>
+            </g>
+            <g transform="translate(120, 26)">
+              <path d="M22 14 C22 2, 32 2, 32 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="27" cy="24" r="6" fill="#C92A2A"/>
+              <path d="M36 34 C52 52, 48 88, 22 94" stroke="#A67B56" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <ellipse cx="25" cy="64" rx="14" ry="18" fill="#59361E"/>
+            </g>
+          </svg>`,
+        whiteRedDuetEarring: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#F3ECE1"/>
+            <g transform="translate(78, 30)">
+              <path d="M14 14 C14 2, 24 2, 24 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="19" cy="26" r="7" fill="#C92A2A"/>
+              <circle cx="19" cy="40" r="7" fill="#C92A2A"/>
+              <ellipse cx="19" cy="66" rx="12" ry="16" fill="#F9F6F0" stroke="#D6CFC4" stroke-width="1.5"/>
+            </g>
+            <g transform="translate(124, 30)">
+              <path d="M14 14 C14 2, 24 2, 24 14" stroke="#6B7280" stroke-width="2" fill="none"/>
+              <circle cx="19" cy="26" r="7" fill="#C92A2A"/>
+              <circle cx="19" cy="40" r="7" fill="#C92A2A"/>
+              <ellipse cx="19" cy="66" rx="12" ry="16" fill="#F9F6F0" stroke="#D6CFC4" stroke-width="1.5"/>
+            </g>
+          </svg>`,
+        multiSeedBracelet: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EFE7DB"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#596152" stroke-width="18" stroke-dasharray="14 4"/>
+            <circle cx="120" cy="36" r="8" fill="#C92A2A"/>
+            <circle cx="174" cy="90" r="8" fill="#C92A2A"/>
+            <circle cx="120" cy="144" r="8" fill="#C92A2A"/>
+            <circle cx="66" cy="90" r="8" fill="#C92A2A"/>
+          </svg>`,
+        rudrakshaBracelet: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EFE7DB"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#8C5230" stroke-width="20" stroke-dasharray="15 3"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#4A2713" stroke-width="20" stroke-dasharray="2 16"/>
+          </svg>`,
+        greyCrimsonBracelet: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EFE7DB"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#B8BDB5" stroke-width="16" stroke-dasharray="18 10"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#C92A2A" stroke-width="14" stroke-dasharray="8 20" stroke-dashoffset="10"/>
+          </svg>`,
+        seaBeanCuff: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EFE7DB"/>
+            <ellipse cx="120" cy="40" rx="22" ry="15" fill="#59361E" stroke="#3B2314" stroke-width="2"/>
+            <ellipse cx="168" cy="68" rx="18" ry="22" transform="rotate(30 168 68)" fill="#6B4226" stroke="#3B2314" stroke-width="2"/>
+            <ellipse cx="164" cy="118" rx="18" ry="22" transform="rotate(-30 164 118)" fill="#59361E" stroke="#3B2314" stroke-width="2"/>
+            <ellipse cx="120" cy="142" rx="22" ry="15" fill="#6B4226" stroke="#3B2314" stroke-width="2"/>
+            <ellipse cx="76" cy="118" rx="18" ry="22" transform="rotate(30 76 118)" fill="#59361E" stroke="#3B2314" stroke-width="2"/>
+            <ellipse cx="72" cy="68" rx="18" ry="22" transform="rotate(-30 72 68)" fill="#6B4226" stroke="#3B2314" stroke-width="2"/>
+          </svg>`,
+        ivoryMahoganyBracelet: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EFE7DB"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#C97A36" stroke-width="18" stroke-dasharray="22 22"/>
+            <circle cx="120" cy="90" r="54" fill="none" stroke="#F4EFE6" stroke-width="18" stroke-dasharray="22 22" stroke-dashoffset="22"/>
+          </svg>`,
+        crimsonNecklace: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EAE1D3"/>
+            <path d="M68 18 C68 145, 172 145, 172 18" fill="none" stroke="#C92A2A" stroke-width="12" stroke-dasharray="10 3" stroke-linecap="round"/>
+            <path d="M82 18 C82 125, 158 125, 158 18" fill="none" stroke="#596152" stroke-width="10" stroke-dasharray="12 4" stroke-linecap="round"/>
+          </svg>`,
+        forestAmberNecklace: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EAE1D3"/>
+            <path d="M62 22 C62 142, 178 142, 178 22" fill="none" stroke="#4D5946" stroke-width="14" stroke-dasharray="14 4" stroke-linecap="round"/>
+            <circle cx="120" cy="112" r="10" fill="#D97724"/>
+            <circle cx="98" cy="106" r="9" fill="#D97724"/>
+            <circle cx="142" cy="106" r="9" fill="#D97724"/>
+          </svg>`,
+        earthBerryNecklace: `
+          <svg viewBox="0 0 240 180" class="w-full h-full">
+            <rect width="240" height="180" fill="#EAE1D3"/>
+            <path d="M58 16 C58 150, 182 150, 182 16" fill="none" stroke="#B86B2B" stroke-width="14" stroke-dasharray="14 4"/>
+            <path d="M74 16 C74 130, 166 130, 166 16" fill="none" stroke="#C92A2A" stroke-width="10" stroke-dasharray="8 3"/>
+            <ellipse cx="120" cy="118" rx="14" ry="11" fill="#59361E"/>
+          </svg>`,
+      };
+      return svgs[type] || svgs.abrusEbonyEarring;
+    }
+
+    // 5. Render Products
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      const filtered = PRODUCTS.filter((item) => {
+        const matchesCat = activeCategory === 'All' || item.type === activeCategory;
+        const matchesSeed = !activeSeedFilter || item.seeds.includes(activeSeedFilter);
+        return matchesCat && matchesSeed;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-14 bg-white rounded-3xl border border-espresso/10">
+            <p class="font-serif-display text-2xl font-bold text-espresso mb-2">No pieces match this exact filter combination</p>
+            <p class="text-sm text-espressoMuted mb-4">Try clearing the seed filter or switching jewelry categories.</p>
+            <button onclick="resetAllFilters()" class="px-5 py-2.5 rounded-full bg-espresso text-sand text-xs font-bold uppercase tracking-wider">Reset Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered
+        .map((product) => {
+          const seedBadges = product.seeds
+            .map((seedKey) => {
+              const s = SEEDS[seedKey];
+              return `
+                <button
+                  onclick="openSeedModal('${seedKey}')"
+                  title="Click to inspect ${s.name}"
+                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-sandDark hover:bg-forest hover:text-sand text-espresso transition-colors border border-espresso/10"
+                >
+                  <span class="w-2 h-2 rounded-full" style="background-color: ${s.swatchBg};"></span>
+                  ${s.name.split(' (')[0]}
+                </button>
+              `;
+            })
+            .join('');
+
+          return `
+            <article class="seed-card-hover flex flex-col justify-between rounded-3xl bg-white border border-espresso/10 overflow-hidden shadow-xs">
+              <div>
+                <!-- Visual Header -->
+                <div class="relative h-52 bg-sandDark overflow-hidden group">
+                  ${getProductIllustrationSVG(product.illustration)}
+                  <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-espresso/85 text-sand text-[11px] font-semibold uppercase tracking-wider">
+                    ${product.type}
+                  </span>
+                  <button
+                    onclick="openProductModal('${product.id}')"
+                    class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-white/95 hover:bg-forest hover:text-white text-espresso text-xs font-semibold shadow-sm transition-colors"
+                  >
+                    Seed Story &amp; Specs
+                  </button>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-6">
+                  <div class="flex items-start justify-between gap-3 mb-2">
+                    <h3 class="font-serif-display text-2xl font-bold text-espresso leading-snug">
+                      ${product.name}
+                    </h3>
+                    <span class="font-serif-display text-2xl font-bold text-terracotta shrink-0">
+                      $${product.price}
+                    </span>
+                  </div>
+
+                  <p class="text-sm text-espressoMuted leading-relaxed mb-4">
+                    ${product.description}
+                  </p>
+
+                  <!-- Specific Seeds Used -->
+                  <div class="space-y-1.5">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-espresso/60 block">
+                      Crafted From (Click seed to learn):
+                    </span>
+                    <div class="flex flex-wrap gap-1.5">
+                      ${seedBadges}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Actions -->
+              <div class="px-6 pb-6 pt-2 flex items-center gap-2.5">
+                <button
+                  onclick="addToCart('${product.id}')"
+                  class="flex-1 py-3 px-4 rounded-xl bg-espresso hover:bg-forest text-sand font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                  Add to Bag
+                </button>
+                <button
+                  onclick="openProductModal('${product.id}')"
+                  aria-label="View details for ${product.name}"
+                  class="p-3 rounded-xl border border-espresso/15 hover:bg-sandDark text-espresso transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    // 6. Render Seed Encyclopedia Cards
+    function renderSeedEncyclopedia() {
+      const seedGrid = document.getElementById('seedGrid');
+      seedGrid.innerHTML = Object.values(SEEDS)
+        .map((seed) => {
+          const matchingCount = PRODUCTS.filter((p) => p.seeds.includes(seed.id)).length;
+          return `
+            <div class="seed-card-hover rounded-3xl bg-sand p-7 border border-espresso/10 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-4 mb-5">
+                  <!-- Stylized Botanical Seed Swatch -->
+                  <div class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner border border-espresso/10" style="background-color: ${seed.swatchBg};">
+                    <span class="w-4 h-4 rounded-full opacity-80" style="background-color: ${seed.swatchAccent};"></span>
+                  </div>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-forest/10 text-forest">
+                    Used in ${matchingCount} piece${matchingCount > 1 ? 's' : ''}
+                  </span>
+                </div>
+
+                <h3 class="font-serif-display text-2xl font-bold text-espresso">
+                  ${seed.name}
+                </h3>
+                <p class="text-xs italic text-terracotta font-medium mb-4">
+                  ${seed.botanicalName}
+                </p>
+
+                <div class="space-y-3 text-sm text-espressoMuted">
+                  <div>
+                    <strong class="text-espresso font-semibold">Where It Grows:</strong> ${seed.origin}
+                  </div>
+                  <div>
+                    <strong class="text-espresso font-semibold">Natural Look &amp; Feel:</strong> ${seed.colorTexture}
+                  </div>
+                  <div>
+                    <strong class="text-espresso font-semibold">Cultural Meaning:</strong> ${seed.meaning}
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-espresso/10 flex items-center justify-between">
+                <button
+                  onclick="filterBySeed('${seed.id}')"
+                  class="text-xs font-bold uppercase tracking-wider text-forest hover:text-terracotta transition-colors"
+                >
+                  Shop Jewelry With This Seed &rarr;
+                </button>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    // 7. Filtering Logic
+    function filterProducts(category) {
+      activeCategory = category;
+      document.querySelectorAll('.filter-btn').forEach((btn) => {
+        if (btn.dataset.filter === category) {
+          btn.classList.add('bg-espresso', 'text-sand', 'shadow-sm');
+          btn.classList.remove('text-espresso', 'hover:bg-sand');
+        } else {
+          btn.classList.remove('bg-espresso', 'text-sand', 'shadow-sm');
+          btn.classList.add('text-espresso', 'hover:bg-sand');
+        }
+      });
+      renderProducts();
+    }
+
+    function filterBySeed(seedId) {
+      activeSeedFilter = seedId;
+      activeCategory = 'All';
+      filterProducts('All');
+      const banner = document.getElementById('activeSeedFilterBanner');
+      const nameSpan = document.getElementById('activeSeedFilterName');
+      nameSpan.textContent = SEEDS[seedId].name;
+      banner.classList.remove('hidden');
+      document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearSeedFilter() {
+      activeSeedFilter = null;
+      document.getElementById('activeSeedFilterBanner').classList.add('hidden');
+      renderProducts();
+    }
+
+    function resetAllFilters() {
+      activeSeedFilter = null;
+      document.getElementById('activeSeedFilterBanner').classList.add('hidden');
+      filterProducts('All');
+    }
+
+    // 8. Modals (Product & Seed Story)
+    function openProductModal(productId) {
+      const product = PRODUCTS.find((p) => p.id === productId);
+      if (!product) return;
+
+      const seedDetailsHtml = product.seeds
+        .map((seedKey) => {
+          const s = SEEDS[seedKey];
+          return `
+            <div class="p-4 rounded-2xl bg-sandDark/80 border border-espresso/10">
+              <div class="flex items-center gap-2.5 mb-1.5">
+                <span class="w-3.5 h-3.5 rounded-full shrink-0" style="background-color: ${s.swatchBg};"></span>
+                <h5 class="font-serif-display text-lg font-bold text-espresso">${s.name}</h5>
+                <span class="text-xs italic text-espressoMuted">(${s.botanicalName})</span>
+              </div>
+              <p class="text-xs text-espressoMuted leading-relaxed mb-1"><strong>Origin:</strong> ${s.origin}</p>
+              <p class="text-xs text-espressoMuted leading-relaxed"><strong>Meaning:</strong> ${s.meaning}</p>
+            </div>
+          `;
+        })
+        .join('');
+
+      document.getElementById('detailModalContent').innerHTML = `
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+            <div class="sm:col-span-5 rounded-2xl overflow-hidden border border-espresso/10 h-48">
+              ${getProductIllustrationSVG(product.illustration)}
+            </div>
+            <div class="sm:col-span-7 space-y-2">
+              <span class="inline-block px-3 py-1 rounded-full bg-forest/10 text-forest text-xs font-bold uppercase tracking-wider">
+                ${product.type}
+              </span>
+              <h3 class="font-serif-display text-3xl font-bold text-espresso leading-tight">${product.name}</h3>
+              <p class="font-serif-display text-2xl font-bold text-terracotta">$${product.price}.00</p>
+              <p class="text-sm text-espressoMuted leading-relaxed">${product.description}</p>
+              <div class="flex gap-4 pt-1 text-xs text-espresso/80">
+                <span><strong>Weight:</strong> ${product.weight}</span>
+                <span><strong>Size:</strong> ${product.length}</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-serif-display text-xl font-bold text-espresso mb-3">
+              Botanical Seed Composition &amp; Origin
+            </h4>
+            <div class="space-y-3">
+              ${seedDetailsHtml}
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-forest/5 border border-forest/15 text-xs text-espressoMuted">
+            <strong class="text-forest">Artisan Care Note:</strong> Each natural seed is unvarnished and organic. Keep dry and buff occasionally with a drop of natural plant oil.
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button
+              onclick="addToCart('${product.id}'); closeDetailModal();"
+              class="flex-1 py-3.5 px-6 rounded-full bg-espresso hover:bg-forest text-sand font-semibold text-sm transition-colors"
+            >
+              Add to Bag — $${product.price}
+            </button>
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('detailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function openSeedModal(seedKey) {
+      const s = SEEDS[seedKey];
+      if (!s) return;
+
+      document.getElementById('detailModalContent').innerHTML = `
+        <div class="space-y-5">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner" style="background-color: ${s.swatchBg};">
+              <span class="w-5 h-5 rounded-full" style="background-color: ${s.swatchAccent};"></span>
+            </div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Seed Encyclopedia Profile</span>
+              <h3 class="font-serif-display text-3xl font-bold text-espresso">${s.name}</h3>
+              <p class="text-sm italic text-espressoMuted">${s.botanicalName}</p>
+            </div>
+          </div>
+
+          <div class="space-y-3 text-sm text-espressoMuted bg-white p-5 rounded-2xl border border-espresso/10">
+            <p><strong class="text-espresso">Natural Habitat &amp; Harvest:</strong> ${s.origin}</p>
+            <p><strong class="text-espresso">Texture &amp; Natural Color:</strong> ${s.colorTexture}</p>
+            <p><strong class="text-espresso">Heritage &amp; Symbolism:</strong> ${s.meaning}</p>
+            <p><strong class="text-espresso">Care Instructions:</strong> ${s.care}</p>
+          </div>
+
+          <button
+            onclick="closeDetailModal(); filterBySeed('${s.id}');"
+            class="w-full py-3.5 rounded-full bg-forest hover:bg-forestLight text-sand font-semibold text-sm transition-colors"
+          >
+            View All Jewelry Made With ${s.name.split(' (')[0]}
+          </button>
+        </div>
+      `;
+
+      const modal = document.getElementById('detailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // 9. Shopping Cart & Checkout Logic
+    function addToCart(productId) {
+      const product = PRODUCTS.find((p) => p.id === productId);
+      if (!product) return;
+
+      const existing = cart.find((item) => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`Added "${product.name}" to your bag`);
+    }
+
+    function updateQty(productId, delta) {
+      const index = cart.findIndex((item) => item.id === productId);
+      if (index === -1) return;
+
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+      document.getElementById('cartBadge').textContent = totalItems;
+      document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+
+      const container = document.getElementById('cartItemsContainer');
+      const footer = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 space-y-3">
+            <div class="w-14 h-14 rounded-full bg-sandDark mx-auto flex items-center justify-center text-espressoMuted">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+            </div>
+            <p class="font-serif-display text-2xl font-bold text-espresso">Your bag is empty</p>
+            <p class="text-xs text-espressoMuted max-w-xs mx-auto">Explore our handcrafted natural seed earrings, bracelets, and necklaces to begin your collection.</p>
+          </div>
+        `;
+        footer.classList.add('hidden');
+        return;
+      }
+
+      footer.classList.remove('hidden');
+      container.innerHTML = cart
+        .map(
+          (item) => `
+          <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-espresso/10">
+            <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-espresso/10">
+              ${getProductIllustrationSVG(item.illustration)}
+            </div>
+            <div class="flex-1 min-w-0">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-forest">${item.type}</span>
+              <h4 class="font-serif-display text-lg font-bold text-espresso truncate">${item.name}</h4>
+              <p class="text-xs font-semibold text-terracotta">$${item.price * item.qty}</p>
+            </div>
+            <div class="flex items-center gap-1.5 bg-sandDark rounded-lg p-1">
+              <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 rounded-md bg-white text-espresso font-bold text-xs hover:bg-espresso hover:text-white transition-colors">-</button>
+              <span class="w-5 text-center text-xs font-bold">${item.qty}</span>
+              <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 rounded-md bg-white text-espresso font-bold text-xs hover:bg-espresso hover:text-white transition-colors">+</button>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    function toggleCart(open) {
+      const drawer = document.getElementById('cartDrawer');
+      if (open) {
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function showCheckoutForm() {
+      document.getElementById('checkoutFormSection').classList.remove('hidden');
+      document.getElementById('proceedCheckoutBtn').classList.add('hidden');
+    }
+
+    function submitStandardOrder() {
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      if (!name || !phone) {
+        showToast('Please enter your name and phone number to complete your order.');
+        return;
+      }
+      cart = [];
+      updateCartUI();
+      document.getElementById('checkoutFormSection').classList.add('hidden');
+      document.getElementById('proceedCheckoutBtn').classList.remove('hidden');
+      toggleCart(false);
+      showToast(`Thank you, ${name}! Your artisan seed jewelry order has been received.`);
+    }
+
+    function orderViaWhatsApp() {
+      const name = document.getElementById('customerName').value.trim() || 'Customer';
+      const city = document.getElementById('customerCity').value.trim() || 'Not specified';
+      const itemsText = cart.map((i) => `• ${i.name} (${i.type}) x${i.qty} = $${i.price * i.qty}`).join('%0A');
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      const message = `Hello Tera & Seed! I'd like to order:%0A${itemsText}%0A%0ATotal: $${total}%0AName: ${name}%0ADelivery: ${city}`;
+      window.open(`https://wa.me/251925256424?text=${message}`, '_blank');
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // Custom Toast Notification (No alert())
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className =
+        'pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-espresso text-sand text-xs font-medium shadow-xl border border-ochre/30 transition-all duration-300';
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-ochre shrink-0"></span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // Initialize Page on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      renderSeedEncyclopedia();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>
