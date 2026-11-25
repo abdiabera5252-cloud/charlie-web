@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Seed | Handcrafted Natural Seed Jewelry</title>
+  <title>Tera & Seed | Handcrafted Natural Seed Jewelry</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -151,8 +151,22 @@
 
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-forest text-sand">
+    <!-- Full-Bleed Background Photo with Clean Top Framing & Gradient Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        id="heroBackgroundImage"
+        src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=1920&q=85"
+        onerror="this.src='https://placehold.co/1920x1080/1E3A2F/FAF7F2?text=Tera+%26+Seed+Natural+Jewelry'"
+        alt="Handcrafted natural seed and botanical jewelry showcase"
+        class="w-full h-full object-cover object-top transition-opacity duration-500"
+      />
+      <!-- Deep Earthy Gradient Scrim for Crisp Typography Legibility -->
+      <div class="absolute inset-0 bg-gradient-to-r from-forest/95 via-forest/85 to-espresso/70"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-espresso/60 via-transparent to-forest/40"></div>
+    </div>
+
     <!-- Subtle Organic SVG Pattern Overlay -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none">
+    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
       <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="seedPattern" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -165,16 +179,30 @@
       </svg>
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+      <!-- Top Hero Bar: Badge + Owner Background Photo Switcher -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sand/15 backdrop-blur-xs border border-sand/25 text-ochre text-xs font-semibold uppercase tracking-widest">
+          <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+          100% Wild-Harvested Botanical Adornments
+        </div>
+
+        <button
+          onclick="openHeroPhotoModal()"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-espresso/80 hover:bg-terracotta text-sand text-xs font-semibold tracking-wide border border-sand/25 backdrop-blur-md transition-all shadow-md"
+        >
+          <svg class="w-4 h-4 text-ochre" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Change Hero Photo
+        </button>
+      </div>
+
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <!-- Hero Copy -->
         <div class="lg:col-span-7 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sand/10 border border-sand/20 text-ochre text-xs font-semibold uppercase tracking-widest">
-            <span class="w-2 h-2 rounded-full bg-terracotta"></span>
-            100% Wild-Harvested Botanical Adornments
-          </div>
-
-          <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-sand">
+          <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-sand drop-shadow-xs">
             Wear the Earth’s Hidden Gems — <span class="italic font-normal text-ochre">Handcrafted Natural Seed Jewelry</span>
           </h1>
 
@@ -216,7 +244,7 @@
 
         <!-- Editorial Botanical Showcase Card -->
         <div class="lg:col-span-5">
-          <div class="relative rounded-3xl bg-sand p-6 sm:p-8 text-espresso shadow-2xl border border-ochre/30">
+          <div class="relative rounded-3xl bg-sand/95 backdrop-blur-md p-6 sm:p-8 text-espresso shadow-2xl border border-ochre/30">
             <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Artisan Showcase</span>
               <span class="px-3 py-1 rounded-full bg-forest/10 text-forest text-xs font-semibold">Made from Natural Seeds</span>
@@ -548,6 +576,89 @@
     </div>
   </footer>
 
+  <!-- Slide-Over Shopping Bag Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div onclick="toggleCart(false)" class="absolute inset-0 bg-espresso/65 backdrop-blur-xs transition-opacity"></div>
+
+    <!-- Drawer Panel -->
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-sand text-espresso shadow-2xl border-l border-espresso/15 flex flex-col">
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between px-6 py-5 border-b border-espresso/10 bg-sandDark/50">
+        <div>
+          <h3 class="font-serif-display text-2xl font-bold text-espresso">Your Seed Bag</h3>
+          <p class="text-xs text-espressoMuted">Handcrafted natural botanical pieces</p>
+        </div>
+        <button
+          onclick="toggleCart(false)"
+          aria-label="Close shopping bag"
+          class="w-10 h-10 rounded-full bg-white hover:bg-espresso hover:text-sand flex items-center justify-center transition-colors border border-espresso/10"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-3">
+        <!-- Dynamically populated via updateCartUI() -->
+      </div>
+
+      <!-- Cart Footer & Checkout Form -->
+      <div id="cartFooter" class="hidden border-t border-espresso/10 p-6 bg-sandDark/50 space-y-4">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-espressoMuted font-medium">Subtotal</span>
+          <span id="cartSubtotal" class="font-serif-display text-2xl font-bold text-espresso">$0.00</span>
+        </div>
+
+        <button
+          id="proceedCheckoutBtn"
+          onclick="showCheckoutForm()"
+          class="w-full py-3.5 px-6 rounded-full bg-espresso hover:bg-forest text-sand font-semibold text-sm transition-colors shadow-md"
+        >
+          Proceed to Order
+        </button>
+
+        <!-- Direct Checkout Form -->
+        <div id="checkoutFormSection" class="hidden space-y-3 pt-2 border-t border-espresso/10">
+          <input
+            type="text"
+            id="customerName"
+            placeholder="Your Full Name *"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Phone / WhatsApp Number *"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <input
+            type="text"
+            id="customerCity"
+            placeholder="City / Delivery Address"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+          />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button
+              onclick="submitStandardOrder()"
+              class="py-3 px-4 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-xs uppercase tracking-wider transition-colors"
+            >
+              Place Order
+            </button>
+            <button
+              onclick="orderViaWhatsApp()"
+              class="py-3 px-4 rounded-xl bg-forest hover:bg-forestLight text-sand font-semibold text-xs uppercase tracking-wider transition-colors"
+            >
+              Order via WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <!-- Interactive Product & Seed Detail Modal -->
   <div id="detailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/70 backdrop-blur-sm">
     <div class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-sand text-espresso shadow-2xl border border-espresso/15 p-6 sm:p-8">
@@ -567,85 +678,95 @@
     </div>
   </div>
 
-  <!-- Slide-over Shopping Cart Drawer -->
-  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
-    <!-- Backdrop -->
-    <div onclick="toggleCart(false)" class="absolute inset-0 bg-espresso/60 backdrop-blur-xs transition-opacity"></div>
+  <!-- Hero Background Photo Uploader & URL Switcher Modal -->
+  <div id="heroPhotoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/75 backdrop-blur-sm">
+    <div class="relative w-full max-w-lg rounded-3xl bg-sand text-espresso shadow-2xl border border-espresso/15 p-6 sm:p-8">
+      <button
+        onclick="closeHeroPhotoModal()"
+        aria-label="Close photo switcher"
+        class="absolute top-5 right-5 w-10 h-10 rounded-full bg-sandDark hover:bg-espresso hover:text-sand flex items-center justify-center transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
 
-    <!-- Drawer Panel -->
-    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-sand shadow-2xl flex flex-col border-l border-espresso/15">
-      <!-- Drawer Header -->
-      <div class="p-6 border-b border-espresso/10 flex items-center justify-between">
+      <div class="space-y-5">
         <div>
-          <h3 class="font-serif-display text-2xl font-bold text-espresso">Your Botanical Bag</h3>
-          <p class="text-xs text-espressoMuted">Handcrafted natural seed pieces</p>
-        </div>
-        <button
-          onclick="toggleCart(false)"
-          aria-label="Close bag"
-          class="p-2 rounded-full hover:bg-sandDark text-espresso"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Cart Items List -->
-      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
-        <!-- Populated via JS -->
-      </div>
-
-      <!-- Cart Footer & Checkout Form -->
-      <div id="cartFooter" class="p-6 bg-sandDark/80 border-t border-espresso/10 space-y-4">
-        <div class="flex items-center justify-between text-base font-semibold">
-          <span class="text-espressoMuted">Subtotal</span>
-          <span id="cartSubtotal" class="font-serif-display text-2xl font-bold text-espresso">$0.00</span>
+          <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Storefront Customizer</span>
+          <h3 class="font-serif-display text-3xl font-bold text-espresso mt-1">Change Hero Background Photo</h3>
+          <p class="text-xs text-espressoMuted mt-1">
+            Upload your own market display photo from your computer or phone, or paste a direct image URL below.
+          </p>
         </div>
 
-        <!-- Quick Order Checkout Form -->
-        <div id="checkoutFormSection" class="hidden space-y-3 pt-2 border-t border-espresso/10">
+        <!-- Option 1: Local File Upload -->
+        <div class="p-4 rounded-2xl bg-white border border-dashed border-forest/40 hover:border-forest transition-colors">
+          <label for="heroFileInput" class="flex flex-col items-center justify-center gap-2 cursor-pointer py-2 text-center">
+            <div class="w-10 h-10 rounded-full bg-forest/10 text-forest flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+            </div>
+            <span class="text-sm font-semibold text-espresso">Upload Photo from Device</span>
+            <span class="text-[11px] text-espressoMuted">Supports JPG, PNG, or WEBP (Automatically saved locally)</span>
+          </label>
           <input
-            type="text"
-            id="customerName"
-            placeholder="Your Full Name"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+            type="file"
+            id="heroFileInput"
+            accept="image/*"
+            onchange="handleHeroFileUpload(event)"
+            class="hidden"
           />
-          <input
-            type="tel"
-            id="customerPhone"
-            placeholder="Phone / WhatsApp Number"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
-          />
-          <input
-            type="text"
-            id="customerCity"
-            placeholder="Delivery City & Address"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
-          />
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+        </div>
+
+        <!-- Option 2: Paste Image URL -->
+        <div class="space-y-2">
+          <label for="heroUrlInput" class="text-xs font-bold uppercase tracking-wider text-espresso/80 block">
+            Or Paste Image URL
+          </label>
+          <div class="flex gap-2">
+            <input
+              type="url"
+              id="heroUrlInput"
+              placeholder="https://example.com/your-seed-jewelry.jpg"
+              class="flex-1 px-3.5 py-2.5 rounded-xl bg-white border border-espresso/15 text-sm focus:outline-none focus:border-forest"
+            />
             <button
-              onclick="submitStandardOrder()"
-              class="w-full py-3 px-4 rounded-xl bg-forest hover:bg-forestLight text-white text-xs font-bold uppercase tracking-wider transition-colors"
+              onclick="applyHeroPhotoUrl()"
+              class="px-5 py-2.5 rounded-xl bg-forest hover:bg-forestLight text-sand text-xs font-bold uppercase tracking-wider transition-colors"
             >
-              Confirm Order
-            </button>
-            <button
-              onclick="orderViaWhatsApp()"
-              class="w-full py-3 px-4 rounded-xl bg-terracotta hover:bg-terracottaDark text-white text-xs font-bold uppercase tracking-wider transition-colors"
-            >
-              Order via WhatsApp
+              Apply
             </button>
           </div>
         </div>
 
-        <button
-          id="proceedCheckoutBtn"
-          onclick="showCheckoutForm()"
-          class="w-full py-3.5 rounded-full bg-espresso hover:bg-forest text-sand font-semibold text-sm tracking-wide transition-colors shadow-md"
-        >
-          Proceed to Order Inquiry
-        </button>
+        <!-- Quick Curated Botanical Presets -->
+        <div class="space-y-2 pt-2 border-t border-espresso/10">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-espressoMuted block">
+            Quick Botanical Presets
+          </span>
+          <div class="grid grid-cols-3 gap-2">
+            <button
+              onclick="setHeroPreset('https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=1920&q=85')"
+              class="p-2 rounded-xl bg-white hover:bg-sandDark border border-espresso/10 text-xs font-semibold text-espresso transition-colors"
+            >
+              Artisan Craft
+            </button>
+            <button
+              onclick="setHeroPreset('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=85')"
+              class="p-2 rounded-xl bg-white hover:bg-sandDark border border-espresso/10 text-xs font-semibold text-espresso transition-colors"
+            >
+              Warm Display
+            </button>
+            <button
+              onclick="setHeroPreset('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1920&q=85')"
+              class="p-2 rounded-xl bg-white hover:bg-sandDark border border-espresso/10 text-xs font-semibold text-espresso transition-colors"
+            >
+              Forest Harvest
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1457,6 +1578,67 @@
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
 
+    // Hero Background Photo Switcher & Local Persistence
+    const HERO_STORAGE_KEY = 'tera_seed_hero_bg_v1';
+
+    function openHeroPhotoModal() {
+      const modal = document.getElementById('heroPhotoModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeHeroPhotoModal() {
+      const modal = document.getElementById('heroPhotoModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function updateHeroImage(src, persist = true) {
+      const img = document.getElementById('heroBackgroundImage');
+      if (!img || !src) return;
+      img.src = src;
+      if (persist) {
+        try {
+          localStorage.setItem(HERO_STORAGE_KEY, src);
+        } catch (err) {
+          // Handle storage quota gracefully for very large images
+        }
+      }
+    }
+
+    function handleHeroFileUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const dataUrl = e.target.result;
+        updateHeroImage(dataUrl, true);
+        closeHeroPhotoModal();
+        showToast('Hero background photo updated from your device!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function applyHeroPhotoUrl() {
+      const input = document.getElementById('heroUrlInput');
+      const url = input.value.trim();
+      if (!url) {
+        showToast('Please paste a valid image URL first.');
+        return;
+      }
+      updateHeroImage(url, true);
+      input.value = '';
+      closeHeroPhotoModal();
+      showToast('Hero background photo updated!');
+    }
+
+    function setHeroPreset(url) {
+      updateHeroImage(url, true);
+      closeHeroPhotoModal();
+      showToast('Botanical background preset applied!');
+    }
+
     // Custom Toast Notification (No alert())
     function showToast(message) {
       const container = document.getElementById('toastContainer');
@@ -1473,6 +1655,14 @@
 
     // Initialize Page on Load
     window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const savedHero = localStorage.getItem(HERO_STORAGE_KEY);
+        if (savedHero) {
+          updateHeroImage(savedHero, false);
+        }
+      } catch (e) {
+        // Ignore localStorage access restrictions
+      }
       renderProducts();
       renderSeedEncyclopedia();
       updateCartUI();
