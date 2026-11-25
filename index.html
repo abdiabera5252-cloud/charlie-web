@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Seed | Handcrafted Natural Seed Jewelry</title>
+  <title>Tera & Seed | Handcrafted Natural Seed Jewelry</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -90,7 +90,7 @@
           </div>
           <div>
             <span class="font-serif-display text-2xl font-bold tracking-tight text-espresso block leading-none">
-              Charlie &amp; Seed
+            Charlie amp; Seed
             </span>
             <span class="text-[11px] uppercase tracking-[0.22em] text-espressoMuted font-medium">
               Botanical Jewelry
@@ -150,212 +150,67 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-forest text-sand">
-    <!-- Full-Bleed Background Photo with Clean Top Framing & Gradient Overlay -->
+  <section class="relative overflow-hidden bg-espresso text-sand min-h-[75vh] flex items-center">
+    <!-- Clear, Unobstructed Full-Bleed Background Photo -->
     <div class="absolute inset-0 z-0">
       <img
         id="heroBackgroundImage"
         src="charlie.jfif"
-        onerror="this.src='https://placehold.co/1920x1080/1E3A2F/FAF7F2?text=Tera+%26+Seed+Natural+Jewelry'"
-        alt="Handcrafted natural seed and botanical jewelry showcase"
-        class="w-full h-full object-cover object-top transition-opacity duration-500"
+        onerror="this.src='https://placehold.co/1920x1080/2B1E16/FAF7F2?text=Tera+%26+Seed+Natural+Jewelry'"
+        alt="Handcrafted natural seed jewelry"
+        class="w-full h-full object-cover object-center transition-opacity duration-500"
       />
-      <!-- Deep Earthy Gradient Scrim for Crisp Typography Legibility -->
-      <div class="absolute inset-0 bg-gradient-to-r from-forest/95 via-forest/85 to-espresso/70"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-espresso/60 via-transparent to-forest/40"></div>
+      <!-- Subtle Light Scrim Only on Left Side for Clean Text Readability Without Hiding the Photo -->
+      <div class="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent"></div>
     </div>
 
-    <!-- Subtle Organic SVG Pattern Overlay -->
-    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="seedPattern" width="80" height="80" patternUnits="userSpaceOnUse">
-            <circle cx="20" cy="20" r="3" fill="#FAF7F2" />
-            <ellipse cx="60" cy="45" rx="5" ry="8" transform="rotate(25 60 45)" fill="none" stroke="#FAF7F2" stroke-width="1.2" />
-            <path d="M15 65 Q25 55 35 65" fill="none" stroke="#FAF7F2" stroke-width="1.2" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#seedPattern)" />
-      </svg>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
-      <!-- Top Hero Bar: Badge + Owner Background Photo Switcher -->
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sand/15 backdrop-blur-xs border border-sand/25 text-ochre text-xs font-semibold uppercase tracking-widest">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 w-full">
+      <!-- Top Hero Badge -->
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-espresso/65 backdrop-blur-xs border border-sand/25 text-ochre text-xs font-semibold uppercase tracking-widest">
           <span class="w-2 h-2 rounded-full bg-terracotta"></span>
           100% Wild-Harvested Botanical Adornments
         </div>
-
-        <button
-          onclick="openHeroPhotoModal()"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-espresso/80 hover:bg-terracotta text-sand text-xs font-semibold tracking-wide border border-sand/25 backdrop-blur-md transition-all shadow-md"
-        >
-          <svg class="w-4 h-4 text-ochre" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          Change Hero Photo
-        </button>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="max-w-2xl space-y-6">
         <!-- Hero Copy -->
-        <div class="lg:col-span-7 space-y-6">
-          <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-sand drop-shadow-xs">
-            Wear the Earth’s Hidden Gems — <span class="italic font-normal text-ochre">Handcrafted Natural Seed Jewelry</span>
-          </h1>
+        <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-sand drop-shadow-md">
+          Wear the Earth’s Hidden Gems — <span class="italic font-normal text-ochre">Handcrafted Natural Seed Jewelry</span>
+        </h1>
 
-          <p class="text-base sm:text-lg text-sand/85 max-w-2xl leading-relaxed">
-            Every necklace, bracelet, and earring is thoughtfully strung by hand using genuine crimson Abrus seeds, pearlescent Job’s Tears, sacred Rudraksha, and sculptural Entada sea beans—unpainted, featherlight, and steeped in natural heritage.
-          </p>
+        <p class="text-base sm:text-lg text-sand/95 max-w-xl leading-relaxed drop-shadow-sm">
+          Every necklace, bracelet, and earring is thoughtfully strung by hand using genuine crimson Abrus seeds, pearlescent Job’s Tears, sacred Rudraksha, and sculptural Entada sea beans—unpainted, featherlight, and steeped in natural heritage.
+        </p>
 
-          <div class="flex flex-wrap items-center gap-4 pt-2">
-            <a
-              href="#collection"
-              class="px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm tracking-wide transition-all shadow-lg shadow-black/20"
-            >
-              Explore Collection
-            </a>
-            <a
-              href="#seed-encyclopedia"
-              class="px-7 py-3.5 rounded-full bg-sand/10 hover:bg-sand/20 border border-sand/30 text-sand font-semibold text-sm tracking-wide transition-all"
-            >
-              Discover the Seeds
-            </a>
-          </div>
-
-          <!-- Trust Highlights -->
-          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-sand/15 max-w-lg">
-            <div>
-              <p class="font-serif-display text-2xl font-bold text-ochre">6+</p>
-              <p class="text-xs text-sand/75">Native Seed Varieties</p>
-            </div>
-            <div>
-              <p class="font-serif-display text-2xl font-bold text-ochre">0%</p>
-              <p class="text-xs text-sand/75">Synthetic Dyes or Plastic</p>
-            </div>
-            <div>
-              <p class="font-serif-display text-2xl font-bold text-ochre">1-of-1</p>
-              <p class="text-xs text-sand/75">Unique Natural Grain</p>
-            </div>
-          </div>
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a
+            href="#collection"
+            class="px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm tracking-wide transition-all shadow-lg shadow-black/30"
+          >
+            Explore Collection
+          </a>
+          <a
+            href="#seed-encyclopedia"
+            class="px-7 py-3.5 rounded-full bg-espresso/70 hover:bg-espresso/90 backdrop-blur-xs border border-sand/35 text-sand font-semibold text-sm tracking-wide transition-all"
+          >
+            Discover the Seeds
+          </a>
         </div>
 
-        <!-- Editorial Botanical Showcase Card -->
-        <div class="lg:col-span-5">
-          <div class="relative rounded-3xl bg-sand/95 backdrop-blur-md p-6 sm:p-8 text-espresso shadow-2xl border border-ochre/30">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-bold uppercase tracking-widest text-terracotta">Artisan Showcase</span>
-              <span class="px-3 py-1 rounded-full bg-forest/10 text-forest text-xs font-semibold">Made from Natural Seeds</span>
-            </div>
-
-            <!-- Custom Illustrated Jewelry Display Composition -->
-            <div class="rounded-2xl bg-gradient-to-br from-[#F4EDE2] to-[#E5D9C7] p-6 border border-espresso/10">
-              <svg viewBox="0 0 360 270" class="w-full h-auto drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
-                <!-- Wooden Stand Bar -->
-                <rect x="20" y="28" width="320" height="16" rx="6" fill="#9C7A54" />
-                <rect x="20" y="28" width="320" height="5" rx="2" fill="#B5926B" />
-
-                <!-- Hanging Crimson & Olive Seed Necklaces (Left) -->
-                <g>
-                  <!-- Olive-grey seed strand -->
-                  <path d="M62 44 C56 115, 62 185, 70 245" stroke="#3D352E" stroke-width="1.5" fill="none" />
-                  <ellipse cx="60" cy="64" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="59" cy="84" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="59" cy="104" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="60" cy="124" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="62" cy="144" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="64" cy="164" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="66" cy="184" rx="7" ry="9" fill="#5D6455" />
-                  <ellipse cx="68" cy="204" rx="7" ry="9" fill="#5D6455" />
-
-                  <!-- Crimson Abrus seed strand -->
-                  <path d="M88 44 C84 115, 90 185, 96 245" stroke="#3D352E" stroke-width="1.5" fill="none" />
-                  <circle cx="87" cy="62" r="6" fill="#C92A2A" />
-                  <circle cx="86" cy="76" r="6" fill="#C92A2A" />
-                  <circle cx="86" cy="90" r="6" fill="#C92A2A" />
-                  <circle cx="86" cy="104" r="6" fill="#C92A2A" />
-                  <circle cx="87" cy="118" r="6" fill="#C92A2A" />
-                  <circle cx="88" cy="132" r="6" fill="#C92A2A" />
-                  <circle cx="89" cy="146" r="6" fill="#C92A2A" />
-                  <circle cx="91" cy="160" r="6" fill="#C92A2A" />
-                  <circle cx="92" cy="174" r="6" fill="#C92A2A" />
-                  <circle cx="93" cy="188" r="6" fill="#C92A2A" />
-                </g>
-
-                <!-- Bracelet Stack on Wooden Bar (Top Right) -->
-                <g>
-                  <!-- Job's Tears Bracelet -->
-                  <rect x="148" y="16" width="14" height="42" rx="7" fill="#D5D7D4" stroke="#7A7D79" stroke-width="1" />
-                  <!-- Olive Seed Bracelet -->
-                  <rect x="166" y="15" width="16" height="44" rx="8" fill="#596152" />
-                  <!-- Crimson & Ebony Bracelet -->
-                  <rect x="186" y="15" width="15" height="44" rx="7.5" fill="#B82929" />
-                  <circle cx="193.5" cy="26" r="3" fill="#1F1B18" />
-                  <circle cx="193.5" cy="46" r="3" fill="#1F1B18" />
-                  <!-- Rudraksha Bracelet -->
-                  <rect x="205" y="15" width="16" height="44" rx="8" fill="#8C5230" stroke="#5E3319" stroke-dasharray="2 2" />
-                  <!-- Ochre / Tagua Bracelet -->
-                  <rect x="225" y="15" width="16" height="44" rx="8" fill="#C97A36" />
-                  <!-- Giant Sea Bean Cuff -->
-                  <ellipse cx="262" cy="37" rx="18" ry="22" fill="#5C3A24" stroke="#3B2314" stroke-width="2" />
-                </g>
-
-                <!-- Black Velvet Earring Display Board -->
-                <rect x="122" y="74" width="208" height="176" rx="12" fill="#232220" />
-
-                <!-- Pair 1: Crimson & Ebony Drop Earrings -->
-                <g transform="translate(148, 96)">
-                  <path d="M0 0 C0 -6, 6 -6, 6 0" stroke="#D1D5DB" fill="none" stroke-width="1.4" />
-                  <circle cx="3" cy="10" r="5" fill="#C92A2A" />
-                  <ellipse cx="3" cy="24" rx="6" ry="8" fill="#141312" />
-                  <path d="M18 0 C18 -6, 24 -6, 24 0" stroke="#D1D5DB" fill="none" stroke-width="1.4" />
-                  <circle cx="21" cy="10" r="5" fill="#C92A2A" />
-                  <ellipse cx="21" cy="24" rx="6" ry="8" fill="#141312" />
-                </g>
-
-                <!-- Pair 2: Job's Tears Hoops -->
-                <g transform="translate(202, 96)">
-                  <circle cx="10" cy="18" r="12" stroke="#D8DBD6" stroke-width="5" stroke-dasharray="6 2" fill="none" />
-                  <circle cx="34" cy="18" r="12" stroke="#D8DBD6" stroke-width="5" stroke-dasharray="6 2" fill="none" />
-                </g>
-
-                <!-- Pair 3: Ochre & Rudraksha Drops -->
-                <g transform="translate(268, 96)">
-                  <circle cx="6" cy="11" r="6" fill="#D97724" />
-                  <circle cx="6" cy="25" r="7.5" fill="#8C5230" />
-                  <circle cx="26" cy="11" r="6" fill="#D97724" />
-                  <circle cx="26" cy="25" r="7.5" fill="#8C5230" />
-                </g>
-
-                <!-- Pair 4: Sculptural Sea Bean & Pod Earrings (Bottom Row) -->
-                <g transform="translate(155, 174)">
-                  <path d="M4 12 C-4 22, -2 38, 12 42" stroke="#A67B56" stroke-width="5" fill="none" stroke-linecap="round" />
-                  <ellipse cx="10" cy="26" rx="7" ry="9" fill="#59361E" />
-                  <path d="M32 12 C40 22, 38 38, 24 42" stroke="#A67B56" stroke-width="5" fill="none" stroke-linecap="round" />
-                  <ellipse cx="26" cy="26" rx="7" ry="9" fill="#59361E" />
-                </g>
-
-                <!-- Pair 5: Twin Ochre Drops -->
-                <g transform="translate(232, 176)">
-                  <circle cx="6" cy="10" r="4" fill="#C92A2A" />
-                  <circle cx="6" cy="24" r="7.5" fill="#C96A22" />
-                  <circle cx="26" cy="10" r="4" fill="#C92A2A" />
-                  <circle cx="26" cy="24" r="7.5" fill="#C96A22" />
-                </g>
-              </svg>
-            </div>
-
-            <div class="mt-5 flex items-center justify-between gap-4">
-              <div>
-                <h3 class="font-serif-display text-xl font-bold text-espresso">The Market Harvest Collection</h3>
-                <p class="text-xs text-espressoMuted">Earrings, Stretch Bracelets &amp; Multi-Strand Necklaces</p>
-              </div>
-              <a href="#collection" class="shrink-0 text-xs font-bold uppercase tracking-wider text-forest hover:text-terracotta underline underline-offset-4">
-                Shop All &rarr;
-              </a>
-            </div>
+        <!-- Trust Highlights -->
+        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-sand/25 max-w-md">
+          <div>
+            <p class="font-serif-display text-2xl font-bold text-ochre drop-shadow-xs">6+</p>
+            <p class="text-xs text-sand/90">Native Seed Varieties</p>
+          </div>
+          <div>
+            <p class="font-serif-display text-2xl font-bold text-ochre drop-shadow-xs">0%</p>
+            <p class="text-xs text-sand/90">Synthetic Dyes or Plastic</p>
+          </div>
+          <div>
+            <p class="font-serif-display text-2xl font-bold text-ochre drop-shadow-xs">1-of-1</p>
+            <p class="text-xs text-sand/90">Unique Natural Grain</p>
           </div>
         </div>
       </div>
@@ -569,9 +424,18 @@
 
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sand/65">
         <p>&copy; 2026 Tera &amp; Seed Artisan Jewelry. All rights reserved.</p>
-        <p class="font-medium text-sand/90">
-          Designed &amp; Developed by <span class="text-ochre font-semibold">Abdi Abera</span> | <a href="tel:+251925256424" class="hover:underline">+251925256424</a>
-        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <button
+            onclick="openHeroPhotoModal()"
+            class="text-sand/70 hover:text-ochre underline underline-offset-4 transition-colors"
+          >
+            Customize Hero Photo
+          </button>
+          <span class="hidden sm:inline text-sand/30">&bull;</span>
+          <p class="font-medium text-sand/90">
+            Designed &amp; Developed by <span class="text-ochre font-semibold">Abdi Abera</span> | <a href="tel:+251925256424" class="hover:underline">+251925256424</a>
+          </p>
+        </div>
       </div>
     </div>
   </footer>
